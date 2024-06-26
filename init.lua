@@ -48,6 +48,19 @@ vim.api.nvim_set_keymap('n', '<Down>', 'gj', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Up>', 'gk', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<Down>', 'gj', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<Up>', 'gk', { noremap = true, silent = true })
+
+-- Control Left or Right for move Cursor to start or end of Line
+vim.api.nvim_set_keymap('n', '<c-Left>', '^^', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<c-Left>', '^^', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<c-Right>', '$', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<c-Right>', '$', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-h>', '^^', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-h>', '^^', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-l>', '$', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-l>', '$', { noremap = true, silent = true })
+
+-- double "," adds semikolon at end of line
+vim.api.nvim_set_keymap('n', ',,', '$a;<Esc>', { noremap = true, silent = true })
 -- [[ Basic Keymaps ]]
 
 vim.opt.hlsearch = true
@@ -60,11 +73,6 @@ vim.keymap.set('n', '<leader>g', vim.diagnostic.open_float, { desc = 'Show diagn
 vim.keymap.set('n', 'gq', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
--- my personal keymaps
 -- Normal mode mappings
 vim.keymap.set('n', '<Tab>', ':bnext<CR>', { desc = 'next buffer' })
 vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', { desc = 'previous buffer' })
