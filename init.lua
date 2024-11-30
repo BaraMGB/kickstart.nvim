@@ -39,6 +39,10 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- testing ESC to fj
+
+vim.api.nvim_set_keymap('i', 'fj', '<ESC>', { noremap = true, silent = true })
+
 -- navigate up/down physical lines on wrap
 vim.api.nvim_set_keymap('n', 'j', 'gj', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'k', 'gk', { noremap = true, silent = true })
