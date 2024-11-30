@@ -316,6 +316,7 @@ require('lazy').setup({
           buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
           mappings = {
             n = { ["q"] = require("telescope.actions").close },
+            i = { ["<C-x>"] = require('telescope.actions').delete_buffer,},
           },
         },
       }
@@ -331,6 +332,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind by [G]rep' })
       vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
       vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[F]ind [R]esume' })
+      vim.keymap.set('n', '<leader>fj', builtin.jumplist, { desc = '[F]ind [J]umplist' })
       vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
       -- Slightly advanced example of overriding default behavior and theme
@@ -689,7 +691,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'ayu-mirage'
+      vim.cmd.colorscheme 'kanagawa-wave'
       -- vim.cmd.colorscheme 'tokyonight-night'
 
       -- You can configure highlights by doing something like:
