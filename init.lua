@@ -71,6 +71,7 @@ vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
+vim.keymap.set('n', 'gb', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', 'gn', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>g', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', 'gq', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -207,6 +208,30 @@ require('lazy').setup({
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
+ -- Fugitive Plugin
+  {
+    'tpope/vim-fugitive',
+    config = function()
+      -- Beispiel: Keymap für :Gdiffsplit hinzufügen
+      vim.keymap.set('n', '<leader>gs', ':Gdiffsplit<CR>', { desc = '' })
+    end,
+  },
+ -- DiffView Plugin
+  {
+    'sindrets/diffview.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+    config = function()
+      require('diffview').setup {
+        enhanced_diff_hl = true, -- Aktiviert erweitertes Highlighting
+      }
+
+      -- Keymaps für DiffView
+      vim.keymap.set('n', '<leader>do', ':DiffviewOpen<CR>', { desc = '[D]iffview [O]pen' })
+      vim.keymap.set('n', '<leader>dc', ':DiffviewClose<CR>', { desc = '[D]iffview [C]lose' })
+      vim.keymap.set('n', '<leader>dh', ':DiffviewFileHistory<CR>', { desc = '[D]iffview [H]istory' })
+    end,
+  },
+
   {-- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
