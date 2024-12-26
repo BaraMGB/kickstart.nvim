@@ -41,7 +41,7 @@ vim.opt.scrolloff = 10
 
 -- testing ESC to fj
 
-vim.api.nvim_set_keymap('i', 'fj', '<ESC>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', 'jf', '<ESC>', { noremap = true, silent = true })
 
 -- navigate up/down physical lines on wrap
 vim.api.nvim_set_keymap('n', 'j', 'gj', { noremap = true, silent = true })
@@ -52,6 +52,8 @@ vim.api.nvim_set_keymap('n', '<Down>', 'gj', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Up>', 'gk', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<Down>', 'gj', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<Up>', 'gk', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<s-Down>', 'gjzz', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<s-Up>', 'gkzz', { noremap = true, silent = true })
 
 -- Control Left or Right for move Cursor to start or end of Line
 vim.api.nvim_set_keymap('n', '<c-Left>', '^^', { noremap = true, silent = true })
@@ -78,13 +80,13 @@ vim.keymap.set('n', 'gq', vim.diagnostic.setloclist, { desc = 'Open diagnostic [
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Normal mode mappings
+-- vim.keymap.set('n', '<C-a>', 'ggvG', { desc = ’select all' })
+vim.keymap.set('n', '<C-a>', 'ggvG', { desc = 'select all' })
 vim.keymap.set('n', '<Tab>', ':bnext<CR>', { desc = 'next buffer' })
 vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', { desc = 'previous buffer' })
 vim.keymap.set('n', '<C-n>', '<cmd> Telescope <CR>', { desc = 'Telescope' })
-vim.keymap.set('n', '<C-s>', ':Telescope Files <CR>', { desc = 'Telescope Files' })
 vim.keymap.set('n', '<leader>e', ':NvimTreeToggle <CR>', { desc = 'File Browser' })
 vim.keymap.set('n', '<leader>c', ':bd<CR>')
-vim.keymap.set('n', '<S-Down>', 'v gj', { desc = 'visual mode' })
 vim.keymap.set('n', '<leader>qn', ':qa!<cr>')
 vim.keymap.set('n', '<leader>h', ':ClangdSwitchSourceHeader<cr>', { desc = 'switch header source' })
 vim.keymap.set('n', '<leader>rf', ":lua require('custom.refactor_function_cpp').moveFunctionToCpp()<CR>", { desc = 'Refactoring' })
@@ -332,11 +334,21 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind by [G]rep' })
       vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
       vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[F]ind [R]esume' })
-      vim.keymap.set('n', '<leader>fj', builtin.jumplist, { desc = '[F]ind [J]umplist' })
-      vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+
+      vim.keymap.set('n', '<leader>fj', function()
+        require('telescope.builtin').jumplist({ initial_mode = 'normal' })
+      end, { desc = '[F]ind [J]umplist' })
+
+      vim.keymap.set('n', '<leader>fo', function()
+        require('telescope.builtin').oldfiles({ initial_mode = 'normal' })
+      end, { desc = '[F]ind Recent Files ("." for repeat)' })
+
+      vim.keymap.set('n', '<leader><leader>', function()
+        require('telescope.builtin').buffers({ initial_mode = 'normal' })
+      end, { desc = '[ ] Find existing buffers' })
+
       -- Slightly advanced example of overriding default behavior and theme
-      vim.keymap.set('n', '<leader>/', function()
+      vim.keymap.set('n', '<leader>t', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
           winblend = 10,
