@@ -410,7 +410,8 @@ require('lazy').setup({
     require('mason').setup()
 
     -- Manual LSP server setup
-    require('lspconfig').lua_ls.setup {
+    -- lua_ls
+    vim.lsp.config('lua_ls', {
       capabilities = capabilities,
       settings = {
         Lua = {
@@ -421,6 +422,7 @@ require('lazy').setup({
             globals = { 'vim' },
           },
           workspace = {
+            -- wie gehabt; lädt dein Runtime als Bibliothek
             library = vim.api.nvim_get_runtime_file("", true),
           },
           telemetry = {
@@ -428,14 +430,17 @@ require('lazy').setup({
           },
         },
       },
-    }
+    })
 
-    require('lspconfig').clangd.setup {
+    -- clangd
+    vim.lsp.config('clangd', {
       capabilities = capabilities,
       cmd = { "clangd", "--header-insertion=never" },
-    }
+      -- optional: weitere clangd-Flags hier ergänzen
+    })
 
-    require('lspconfig').rust_analyzer.setup {
+    -- rust_analyzer
+    vim.lsp.config('rust_analyzer', {
       capabilities = capabilities,
       settings = {
         ["rust-analyzer"] = {
@@ -444,8 +449,7 @@ require('lazy').setup({
           },
         },
       },
-    }
-
+    })
     -- Setup mason-tool-installer for automatic tool installation
     require('mason-tool-installer').setup {
       ensure_installed = {
